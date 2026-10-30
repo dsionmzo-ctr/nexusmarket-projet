@@ -15,7 +15,7 @@ Este perfil es exclusivamente **Java con Spring Boot, Spring Security, Spring Da
 - **Entorno local auto-generado:**
   - **Relacional (SQL):** PostgreSQL en el puerto **`5432`** (base `NexusMarket`; credenciales por variables de entorno `DB_USER` / `DB_PASSWORD`).
   - **NoSQL (auditoría):** MongoDB en el puerto **`27017`** (base `audit_db`, colección `audit_logs`).
-  - **Aplicación:** Java 21, Spring Boot 4.1 y Spring Security.
+  - **Aplicación:** Java 25 (LTS), Spring Boot 4.1 y Spring Security.
   - **Persistencia relacional:** Spring Data JPA / Hibernate.
   - **Auditoría NoSQL:** Spring Data MongoDB.
   - **Build:** Maven.

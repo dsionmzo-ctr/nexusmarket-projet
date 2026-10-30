@@ -12,7 +12,7 @@ C4Container
 
     Person(usuario, "Usuario (cualquier rol)")
     Container_Ext(spa, "Frontend SPA", "Vite/React", "Origen CORS permitido: FRONTEND_ORIGIN")
-    Container(app, "nexusmarket-app", "Java 21, Spring Boot 4.1", "API REST hexagonal; puerto 8080")
+    Container(app, "nexusmarket-app", "Java 25 (LTS), Spring Boot 4.1", "API REST hexagonal; puerto 8080")
     ContainerDb(pg, "postgres-db", "PostgreSQL 16", "Base NexusMarket; puerto 5432")
     ContainerDb(mongo, "mongo-db", "MongoDB 6", "audit_db.audit_logs; puerto 27017")
 
@@ -28,7 +28,7 @@ C4Container
 |---|---|---|---|---|
 | `postgres-db` | `postgres:16` | 5432 | Volumen `postgres_data` | `pg_isready` |
 | `mongo-db` | `mongo:6.0` | 27017 | Volumen `mongo_data` | `db.adminCommand('ping')` |
-| `nexusmarket-app` | Construida desde `./nexusmarket/Dockerfile` (Maven + Temurin 21) | 8080 (`HOST_SERVER_PORT`) | Código montado en `/workspace`, caché Maven en volumen | `GET /actuator/health` |
+| `nexusmarket-app` | Construida desde `./nexusmarket/Dockerfile` (Maven + Temurin 25) | 8080 (`HOST_SERVER_PORT`) | Código montado en `/workspace`, caché Maven en volumen | `GET /actuator/health` |
 
 `nexusmarket-app` solo arranca cuando ambas bases están sanas (`depends_on … service_healthy`).
 

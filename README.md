@@ -1,6 +1,6 @@
 # NexusMarket — Construcción de Software 2 (2026-2)
 
-Marketplace en **Java 21 + Spring Boot 4.1** con **arquitectura hexagonal** (DDD + Ports & Adapters), construido a partir de la especificación funcional de NexusMarket y del `SDD/` del proyecto de referencia. Incluye 5 roles (Comprador, Vendedor, Operador Logístico, Administrador, Supervisor), JWT con invalidación de sesiones, persistencia relacional en **PostgreSQL** y auditoría en **MongoDB**.
+Marketplace en **Java 25 (LTS) + Spring Boot 4.1** con **arquitectura hexagonal** (DDD + Ports & Adapters), construido a partir de la especificación funcional de NexusMarket y del `SDD/` del proyecto de referencia. Incluye 5 roles (Comprador, Vendedor, Operador Logístico, Administrador, Supervisor), JWT con invalidación de sesiones, persistencia relacional en **PostgreSQL** y auditoría en **MongoDB**.
 
 > **Para ponerlo en marcha paso a paso, ver [`SETUP.md`](SETUP.md).**
 > **Para entender qué se tomó del ejemplo del banco, ver [`SDD/Mapeo-banco-a-nexus.md`](SDD/Mapeo-banco-a-nexus.md).**
@@ -10,7 +10,7 @@ Marketplace en **Java 21 + Spring Boot 4.1** con **arquitectura hexagonal** (DDD
 
 | Capa | Tecnología |
 |---|---|
-| Lenguaje / Build | Java 21, Maven |
+| Lenguaje / Build | Java 25 (LTS), Maven |
 | Framework | Spring Boot 4.1.1, Spring MVC, Spring Security (JWT stateless, BCrypt) |
 | Persistencia relacional | Spring Data JPA / Hibernate → PostgreSQL 16 (`NexusMarket`, puerto 5432, DDL automático) |
 | Auditoría NoSQL | Spring Data MongoDB → MongoDB 6 (`audit_db.audit_logs`, puerto 27017) |
@@ -69,6 +69,7 @@ Cada servicio de dominio resuelve **un único caso de uso** (`CheckoutService`, 
 |---|---|---|
 | `DB_URL` | `jdbc:postgresql://localhost:5432/NexusMarket` | JDBC PostgreSQL (en Compose: `postgres-db`) |
 | `DB_USER` / `DB_PASSWORD` | `postgres` / `postgres` | Credenciales PostgreSQL |
+| `DB_CREATE_DATABASE` | `true` | Crea la base configurada si no existe; el usuario debe tener permiso `CREATEDB` |
 | `MONGODB_URI` | `mongodb://localhost:27017/audit_db` | Auditoría |
 | `JWT_SECRET` | secreto de desarrollo | Clave HS256 (mínimo 32 bytes; **cámbiela fuera de local**) |
 | `JWT_EXPIRATION_MS` | `3600000` | Vigencia del token |

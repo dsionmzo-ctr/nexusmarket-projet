@@ -1,5 +1,6 @@
 package application;
 
+import application.infrastructure.config.PostgreSqlDatabaseInitializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NexusMarketApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NexusMarketApplication.class, args);
+        SpringApplication application = new SpringApplication(NexusMarketApplication.class);
+        application.addInitializers(new PostgreSqlDatabaseInitializer());
+        application.run(args);
     }
 }

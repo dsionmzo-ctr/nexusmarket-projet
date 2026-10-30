@@ -50,6 +50,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-nexusmarket-local-development-secret-change-me-0123456789}
       JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+      DB_CREATE_DATABASE: ${DB_CREATE_DATABASE:-true}
       SEED_ENABLED: ${SEED_ENABLED:-true}
       SERVER_PORT: 8080
     depends_on:
