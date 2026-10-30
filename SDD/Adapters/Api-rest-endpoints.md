@@ -24,15 +24,15 @@ Este documento lista **los 81 endpoints** de NexusMarket, agrupados por controla
 |---|---|---|---|---|---|---|---|
 | POST | `/api/v1/auth/login` | Público | `LoginRequestDTO` | `LoginResponseDTO` | 200 | `publicAccessPort.login` | `LoginService` |
 | POST | `/api/v1/auth/logout` | Autenticado | — | `void` | 204 | `publicAccessPort.logout` | `LogoutService` |
-| POST | `/api/v1/auth/register/buyer` | Público | `RegisterBuyerRequestDTO` | `BuyerResponseDTO` | 201 | `publicAccessPort.registerBuyer` | `RegisterBuyerService` |
+| POST | `/api/v1/auth/register/buyer` | Público | `RegisterBuyerRequestDTO` | `BuyerResponseDTO` | 201 | `publicAccessPort.registerBuyerAccount` | `RegisterBuyerAccountService` |
 | POST | `/api/v1/auth/register/user` | Público | `RegisterUserRequestDTO` | `UserResponseDTO` | 201 | `publicAccessPort.registerBuyerUser` | `RegisterBuyerUserService` |
 
 ### Descripción de cada endpoint
 
 - **POST `/api/v1/auth/login`** — Autentica a un usuario del sistema por correo y contraseña y emite el token de acceso. Un correo desconocido y una contraseña errónea producen el mismo error. Flujo: buscar el usuario, validar la contraseña, validar el estado del usuario y generar el token mediante los puertos de salida.
 - **POST `/api/v1/auth/logout`** — Cierra la sesión de un usuario: se incrementa su authTokenVersion, de modo que todo token emitido antes es rechazado desde ese momento.
-- **POST `/api/v1/auth/register/buyer`** — Autorregistro de un comprador: valida los datos obligatorios (identificación, nombre, correo, dirección principal) y la unicidad de identificación y correo en la plataforma. Es una operación anónima, por eso la traza Operation/Audit se registra al crear la cuenta de usuario.
-- **POST `/api/v1/auth/register/user`** — Crea el usuario del sistema (credenciales) de un comprador ya registrado. La identidad y el rol se toman del comprador; el correo y la identificación deben ser únicos en la plataforma.
+- **POST `/api/v1/auth/register/buyer`** — Autorregistro de un comprador junto con su cuenta de acceso: valida los datos obligatorios (identificación, nombre, correo, contraseña, dirección principal), la política de contraseña antes de guardar nada y la unicidad de identificación y correo en la plataforma. Crea el perfil y el usuario en la misma transacción, por lo que el comprador puede iniciar sesión de inmediato; la traza Operation/Audit se registra al crear la cuenta de usuario.
+- **POST `/api/v1/auth/register/user`** — Crea el usuario del sistema (credenciales) de un comprador ya registrado que aún no tiene cuenta. La identidad y el rol se toman del comprador; el correo y la identificación deben ser únicos en la plataforma.
 
 ---
 

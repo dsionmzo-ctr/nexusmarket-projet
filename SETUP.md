@@ -6,7 +6,7 @@ Todos los comandos se ejecutan desde la raíz del repositorio, salvo indicación
 
 1. **Docker** y **Docker Compose** (`docker --version`, `docker compose version`). Java y Maven corren dentro del contenedor, así que no es obligatorio instalarlos.
 2. Puertos libres: **5432** (PostgreSQL), **27017** (MongoDB) y **8080** (app). Si el 8080 está ocupado: `HOST_SERVER_PORT=8081 docker compose up -d --build`.
-3. *(Opcional, para ejecutar sin Docker)* JDK 21, Maven 3.9, PostgreSQL 16 y MongoDB 6 locales.
+3. *(Opcional, para ejecutar sin Docker)* JDK 25 (LTS), Maven 3.9, PostgreSQL 16 y MongoDB 6 locales. El usuario PostgreSQL configurado debe tener permiso `CREATEDB` para que la aplicación genere automáticamente la base de datos si no existe.
 
 ## 1. Levantar la aplicación y las bases de datos
 
@@ -35,6 +35,8 @@ Resultado esperado: `BUILD SUCCESS`. Las pruebas de dominio no requieren bases d
 
 Sin Docker: `cd nexusmarket && mvn test`.
 
+Al iniciar, la aplicación comprueba la existencia de la base indicada por `DB_URL` y la crea si hace falta, antes de inicializar JPA. Para omitir este comportamiento (por ejemplo, cuando la base la administra un servicio externo), configura `DB_CREATE_DATABASE=false` y aprovisiona la base previamente. `spring.jpa.hibernate.ddl-auto=update` crea o actualiza las tablas una vez que la base está disponible.
+
 ## 3. Ejecutar la aplicación directamente (sin Docker)
 
 ```bash
@@ -55,12 +57,12 @@ Con `SEED_ENABLED=true` (por defecto) existen usuarios de demostración (contras
    ```bash
    curl -s http://localhost:8080/api/v1/catalog/products
    ```
-2. **Registrar un comprador** → 201:
+2. **Registrar un comprador** (perfil + cuenta de acceso con contraseña) → 201:
    ```bash
    curl -s -X POST http://localhost:8080/api/v1/auth/register/buyer -H "Content-Type: application/json" \
-     -d '{"identification":"1017123456","name":"Juan Perez","email":"juan.perez@example.com","primaryAddress":{"street":"Calle 50 40-20","city":"Medellin","country":"Colombia"}}'
+     -d '{"identification":"1017123456","name":"Juan Perez","email":"juan.perez@example.com","password":"SecurePass123","primaryAddress":{"street":"Calle 50 40-20","city":"Medellin","country":"Colombia"}}'
    ```
-3. **Crear su usuario** → 201:
+3. *(Opcional, solo para compradores registrados sin cuenta)* **Crear su usuario** → 201:
    ```bash
    curl -s -X POST http://localhost:8080/api/v1/auth/register/user -H "Content-Type: application/json" \
      -d '{"buyerIdentification":"1017123456","password":"SecurePass123"}'

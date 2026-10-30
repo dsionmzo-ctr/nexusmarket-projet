@@ -21,6 +21,9 @@ public interface PublicAccessPort {
     /** Self-registration of a buyer (identity and primary address). */
     Buyer registerBuyer(Buyer buyer);
 
+    /** Self-registration of a buyer together with its access account (raw password carried by {@code account}). */
+    Buyer registerBuyerAccount(Buyer buyer, User account);
+
     /** Creates the system user (credentials) of an already registered buyer. */
     User registerBuyerUser(User user);
 

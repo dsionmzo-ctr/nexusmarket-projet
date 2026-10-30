@@ -161,6 +161,7 @@ Se usa en: `POST /api/v1/auth/register/buyer`
 | `identification` | `?$", message = "must not have surrounding whitespace") String` | `@NotBlank @Size(max = 30) @Pattern(regexp = "^\\S(.*\\S)` |
 | `name` | `String` | `@NotBlank @Size(max = 120)` |
 | `email` | `String` | `@NotBlank @Email @Size(max = 160)` |
+| `password` | `String` | `@NotBlank @Size(min = 8, max = 100)` |
 | `primaryAddress` | `AddressRequestDTO` | `@NotNull @Valid` |
 
 ### RegisterProductRequestDTO

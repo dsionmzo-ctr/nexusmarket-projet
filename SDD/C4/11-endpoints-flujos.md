@@ -8,7 +8,7 @@ Matriz generada a partir de `adapters/rest/controllers/*.java`. Para cada endpoi
 |---|---|---|---|---|---|
 | `POST` | `/auth/login` | `login` → `LoginService` | `UserRepositoryPort`, `PasswordServicePort`, `JwtServicePort` | `LoginRequestDTO` → `LoginResponseDTO` | `200` |
 | `POST` | `/auth/logout` | `logout` → `LogoutService` | `UserRepositoryPort` | `void` | `204` |
-| `POST` | `/auth/register/buyer` | `registerBuyer` → `RegisterBuyerService` | `BuyerRepositoryPort`, `UserRepositoryPort` | `RegisterBuyerRequestDTO` → `BuyerResponseDTO` | `201` |
+| `POST` | `/auth/register/buyer` | `registerBuyerAccount` → `RegisterBuyerAccountService` | `BuyerRepositoryPort`, `UserRepositoryPort`, `PasswordServicePort` | `RegisterBuyerRequestDTO` → `BuyerResponseDTO` | `201` |
 | `POST` | `/auth/register/user` | `registerBuyerUser` → `RegisterBuyerUserService` | `BuyerRepositoryPort`, `UserRepositoryPort`, `PasswordServicePort` | `RegisterUserRequestDTO` → `UserResponseDTO` | `201` |
 
 ```mermaid

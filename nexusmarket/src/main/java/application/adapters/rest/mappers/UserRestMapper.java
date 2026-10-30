@@ -1,6 +1,7 @@
 package application.adapters.rest.mappers;
 
 import application.adapters.rest.dtos.requests.LoginRequestDTO;
+import application.adapters.rest.dtos.requests.RegisterBuyerRequestDTO;
 import application.adapters.rest.dtos.requests.RegisterSellerUserRequestDTO;
 import application.adapters.rest.dtos.requests.RegisterStaffUserRequestDTO;
 import application.adapters.rest.dtos.requests.RegisterUserRequestDTO;
@@ -22,6 +23,13 @@ public final class UserRestMapper {
     public static User toDomain(LoginRequestDTO dto) {
         User user = new User();
         user.setEmail(dto.email().trim().toLowerCase());
+        user.setRawPassword(dto.password());
+        return user;
+    }
+
+    /** Access account requested together with the buyer self-registration. */
+    public static User toBuyerAccount(RegisterBuyerRequestDTO dto) {
+        User user = new User();
         user.setRawPassword(dto.password());
         return user;
     }

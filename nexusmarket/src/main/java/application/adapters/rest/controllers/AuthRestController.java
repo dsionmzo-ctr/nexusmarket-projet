@@ -36,11 +36,12 @@ public class AuthRestController {
         publicAccessPort.logout(principal.domainUser());
     }
 
-    /** Self-registers a buyer profile. */
+    /** Self-registers a buyer profile together with its access account, so the buyer can log in right away. */
     @PostMapping("/register/buyer")
     @ResponseStatus(HttpStatus.CREATED)
     public BuyerResponseDTO registerBuyer(@Valid @RequestBody RegisterBuyerRequestDTO request) {
-        return BuyerRestMapper.toResponse(publicAccessPort.registerBuyer(BuyerRestMapper.toDomain(request)));
+        return BuyerRestMapper.toResponse(publicAccessPort.registerBuyerAccount(
+                BuyerRestMapper.toDomain(request), UserRestMapper.toBuyerAccount(request)));
     }
 
     /** Creates the access account of an already registered buyer. */

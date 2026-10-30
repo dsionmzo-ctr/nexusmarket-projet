@@ -3,6 +3,7 @@ package application.adapters.useCases;
 import application.domain.models.*;
 import application.domain.valueobjects.*;
 import application.domain.ports.in.PublicAccessPort;
+import application.domain.services.buyer.RegisterBuyerAccountService;
 import application.domain.services.buyer.RegisterBuyerService;
 import application.domain.services.catalog.ConsultPublishedProductService;
 import application.domain.services.catalog.ConsultPublishedProductsService;
@@ -25,6 +26,7 @@ public class PublicAccessUseCaseImpl implements PublicAccessPort {
     private final LogoutService logoutService;
     private final RegisterBuyerService registerBuyerService;
     private final RegisterBuyerUserService registerBuyerUserService;
+    private final RegisterBuyerAccountService registerBuyerAccountService;
     private final ConsultPublishedProductsService consultPublishedProductsService;
     private final ConsultPublishedProductService consultPublishedProductService;
 
@@ -32,12 +34,14 @@ public class PublicAccessUseCaseImpl implements PublicAccessPort {
             LogoutService logoutService,
             RegisterBuyerService registerBuyerService,
             RegisterBuyerUserService registerBuyerUserService,
+            RegisterBuyerAccountService registerBuyerAccountService,
             ConsultPublishedProductsService consultPublishedProductsService,
             ConsultPublishedProductService consultPublishedProductService) {
         this.loginService = loginService;
         this.logoutService = logoutService;
         this.registerBuyerService = registerBuyerService;
         this.registerBuyerUserService = registerBuyerUserService;
+        this.registerBuyerAccountService = registerBuyerAccountService;
         this.consultPublishedProductsService = consultPublishedProductsService;
         this.consultPublishedProductService = consultPublishedProductService;
     }
@@ -59,6 +63,11 @@ public class PublicAccessUseCaseImpl implements PublicAccessPort {
     @Override
     public Buyer registerBuyer(Buyer buyer) {
         return registerBuyerService.execute(buyer);
+    }
+
+    @Override
+    public Buyer registerBuyerAccount(Buyer buyer, User account) {
+        return registerBuyerAccountService.execute(buyer, account);
     }
 
     @Override

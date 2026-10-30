@@ -138,6 +138,37 @@ class AuthenticationFlowTest {
     }
 
     @Test
+    void buyerSelfRegistrationWithPasswordAllowsImmediateLogin() {
+        Buyer buyer = new Buyer();
+        buyer.setIdentification("9999999");
+        buyer.setName("New Buyer");
+        buyer.setEmail("new.buyer@nexus.com");
+        buyer.setPrimaryAddress(new Address("Street 1", "City", "Country"));
+        User account = new User();
+        account.setRawPassword(Scenario.PASSWORD);
+
+        Buyer saved = scenario.publicAccess.registerBuyerAccount(buyer, account);
+
+        assertNotNull(saved.getId());
+        AuthenticationResult result = scenario.publicAccess.login(Scenario.credentials("new.buyer@nexus.com", Scenario.PASSWORD));
+        assertEquals(SystemRole.BUYER, result.getAuthenticatedUser().getRole());
+    }
+
+    @Test
+    void buyerSelfRegistrationWithWeakPasswordStoresNothing() {
+        Buyer buyer = new Buyer();
+        buyer.setIdentification("6666666");
+        buyer.setName("Weak Account");
+        buyer.setEmail("weak.account@nexus.com");
+        buyer.setPrimaryAddress(new Address("Street 1", "City", "Country"));
+        User account = new User();
+        account.setRawPassword("onlyletters");
+
+        assertThrows(InvalidUserException.class, () -> scenario.publicAccess.registerBuyerAccount(buyer, account));
+        assertTrue(scenario.container.buyers.findAll().stream().noneMatch(b -> "6666666".equals(b.getIdentification())));
+    }
+
+    @Test
     void onlyAdminsRegisterStaffUsers() {
         User newStaff = Scenario.staff("123", "Intruder", "intruder@nexus.com", SystemRole.ADMIN);
         assertThrows(UnauthorizedOperationException.class, () -> scenario.adminPort.registerStaffUser(scenario.buyerUser, newStaff));

@@ -32,13 +32,14 @@ Operaciones sin sesión previa: login, logout, autorregistro de compradores y ca
 
 - Prefijo REST: `/api/v1/auth`, `/api/v1/catalog`
 - Rol requerido: —
-- Métodos: **6**
+- Métodos: **7**
 
 | Método del puerto | Servicio de dominio |
 |---|---|
 | `AuthenticationResult login(User user)` | `LoginService` |
 | `void logout(User user)` | `LogoutService` |
 | `Buyer registerBuyer(Buyer buyer)` | `RegisterBuyerService` |
+| `Buyer registerBuyerAccount(Buyer buyer, User account)` | `RegisterBuyerAccountService` |
 | `User registerBuyerUser(User user)` | `RegisterBuyerUserService` |
 | `List<Product> consultPublishedProducts()` | `ConsultPublishedProductsService` |
 | `Product consultPublishedProduct(Product product)` | `ConsultPublishedProductService` |
